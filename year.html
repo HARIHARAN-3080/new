@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Year Selection</title>
-    <link rel="stylesheet" href="css/style.css">
+    <title>SDDATA</title>
+    <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
     <header>
         <div class="container">
@@ -14,10 +16,10 @@
             </div>
             <nav>
                 <ul>
-                    <li><a href="#">YEAR </a><span>SELECTION </span><a1>ECE</a1></li>
+                    <li><a href="#">YEAR </a><span>SELECTION </span><a1 id="selectedDept">ECE</a1></li>
                 </ul>
                 <div class="profile-dropdown">
-                    <img src="images/profile.png" alt="User Profile" class="profile-img" onclick="toggleDropdown()">
+                    <img src="profile.png" alt="User Profile" class="profile-img" onclick="toggleDropdown()">
                     <div class="dropdown-content" id="dropdownMenu">
                         <a href="#">Profile</a>
                         <a href="#">Settings</a>
@@ -30,27 +32,26 @@
 
     <section class="departments">
         <div class="container">
-            <div class="button" onclick="redirectToYear('year-1')">
-                <img src="images/I.png" alt="1st Year">
+            <div class="button" onclick="navigateToStudentPage('year-1')">
+                <img src="1st.png" alt="1st Year">
                 <span>1st Year</span>
             </div>
-            <div class="button" onclick="redirectToYear('year-2')">
-                <img src="images/II.png" alt="2nd Year">
+            <div class="button" onclick="navigateToStudentPage('year-2')">
+                <img src="2nd.png" alt="2nd Year">
                 <span>2nd Year</span>
             </div>
-            <div class="button" onclick="redirectToYear('year-3')">
-                <img src="images/III.png" alt="3rd Year">
+            <div class="button" onclick="navigateToStudentPage('year-3')">
+                <img src="3rd.png" alt="3rd Year">
                 <span>3rd Year</span>
             </div>
-            <div class="button" onclick="redirectToYear('year-4')">
-                <img src="images/IV.png" alt="4th Year">
+            <div class="button" onclick="navigateToStudentPage('year-4')">
+                <img src="4th.png" alt="4th Year">
                 <span>4th Year</span>
             </div>
         </div>
     </section>
 
-    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-database.js"></script>
     <script type="module" src="app.js"></script>
 </body>
+
 </html>
