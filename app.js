@@ -16,45 +16,50 @@ const firebaseConfig = {
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
-const database = getDatabase(app); // Use this to access Realtime Database
+const database = getDatabase(app); // Access Realtime Database
 
 // Modal Functions
 const loginModal = document.getElementById("loginModal");
 
 // Open Modal
 window.openLoginModal = function () {
-    loginModal.classList.add("show");
+    loginModal?.classList.add("show");
 };
 
 // Close Modal
 window.closeLoginModal = function () {
-    loginModal.classList.remove("show");
+    loginModal?.classList.remove("show");
 };
 
 // Firebase Login Function
 window.login = function () {
-    const email = document.getElementById("email").value;
-    const password = document.getElementById("password").value;
+    const email = document.getElementById("email")?.value;
+    const password = document.getElementById("password")?.value;
     const message = document.getElementById("message");
 
-    signInWithEmailAndPassword(auth, email, password)
-        .then((userCredential) => {
-            message.innerHTML = "Login successful! Redirecting...";
-            message.className = "message success show";
-            setTimeout(() => {
-                window.location.href = "dept.html"; // Redirect after successful login
-            }, 1500);
-        })
-        .catch((error) => {
-            message.innerHTML = "Invalid email or password!";
-            message.className = "message error show";
-        });
+    if (email && password) {
+        signInWithEmailAndPassword(auth, email, password)
+            .then((userCredential) => {
+                message.innerHTML = "Login successful! Redirecting...";
+                message.className = "message success show";
+                setTimeout(() => {
+                    window.location.href = "dept.html"; // Redirect after successful login
+                }, 1500);
+            })
+            .catch((error) => {
+                message.innerHTML = "Invalid email or password!";
+                message.className = "message error show";
+            });
+    } else {
+        message.innerHTML = "Please enter email and password.";
+        message.className = "message error show";
+    }
 };
 
 // Profile Dropdown
 window.toggleProfileDropdown = function () {
-    const dropdown = document.getElementById("dropdownContent");
-    dropdown.classList.toggle("show");
+    const dropdown = document.getElementById("dropdownMenu");
+    dropdown?.classList.toggle("show");
 };
 
 // Close dropdown when clicking outside
@@ -108,23 +113,25 @@ window.fetchDepartmentData = function (department, year) {
 // Display Student List Function
 function displayStudentList(data) {
     const studentListContainer = document.getElementById("studentList");
-    studentListContainer.innerHTML = "";
+    if (studentListContainer) {
+        studentListContainer.innerHTML = "";
 
-    if (data) {
-        Object.keys(data).forEach((student) => {
-            const studentData = data[student].student_data;
-            const studentCard = `
-                <div class="student-card">
-                    <h3>${student}</h3>
-                    <p>Roll No: ${studentData.roll_no || "N/A"}</p>
-                    <p>Department: ${studentData.department || "N/A"}</p>
-                    <p>Year: ${studentData.year || "N/A"}</p>
-                </div>
-            `;
-            studentListContainer.innerHTML += studentCard;
-        });
-    } else {
-        studentListContainer.innerHTML = "<p>No student data available.</p>";
+        if (data) {
+            Object.keys(data).forEach((student) => {
+                const studentData = data[student].student_data || {};
+                const studentCard = `
+                    <div class="student-card">
+                        <h3>${student}</h3>
+                        <p>Roll No: ${studentData.roll_no || "N/A"}</p>
+                        <p>Department: ${studentData.department || "N/A"}</p>
+                        <p>Year: ${studentData.year || "N/A"}</p>
+                    </div>
+                `;
+                studentListContainer.innerHTML += studentCard;
+            });
+        } else {
+            studentListContainer.innerHTML = "<p>No student data available.</p>";
+        }
     }
 }
 
@@ -150,4 +157,3 @@ document.getElementById("closeModal")?.addEventListener("click", closeLoginModal
 
 // Login on Submit Button Click
 document.getElementById("loginSubmit")?.addEventListener("click", login);
-
