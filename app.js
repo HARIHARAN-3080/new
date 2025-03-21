@@ -4,13 +4,14 @@ import { getAuth, signInWithEmailAndPassword } from "https://www.gstatic.com/fir
 import { getDatabase, ref, get } from "https://www.gstatic.com/firebasejs/11.2.0/firebase-database.js";
 
 // Firebase Configuration
+
 const firebaseConfig = {
     apiKey: "AIzaSyDJZYPHzaWbQm328L8SXDzvH52X5XB-vJw",
     authDomain: "signin-5a455.firebaseapp.com",
     projectId: "signin-5a455",
-    storageBucket: "signin-5a455.appspot.com",
-    messagingSenderId: "605090661173",
-    appId: "1:605090661173:web:123456abcd"
+    storageBucket: "signin-5a455.firebasestorage.app",
+    messagingSenderId: "330194380982",
+    appId: "1:330194380982:web:9d5b942421760a6c8f1e17"
 };
 
 // Initialize Firebase
@@ -76,13 +77,11 @@ window.onclick = function (event) {
 
 // Department Navigation Function
 window.navigateToYear = function (department) {
-    // Save department to localStorage
     localStorage.setItem("selectedDepartment", department);
-    // Redirect to year.html
-    location.href = "year.html";
+    window.location.href = "year.html";
 };
 
-// ✅ New Function: Navigate to Student Portal with Department & Year
+// ✅ Corrected: Navigate to Student Portal with Department & Year
 window.navigateToStudentPage = function (year) {
     const selectedDept = localStorage.getItem("selectedDepartment");
     if (selectedDept) {
@@ -100,7 +99,7 @@ window.fetchDepartmentData = function (department, year) {
         .then((snapshot) => {
             if (snapshot.exists()) {
                 console.log(`Data for ${department} - ${year}`, snapshot.val());
-                displayStudentList(snapshot.val()); // Display data on the page
+                displayStudentList(snapshot.val());
             } else {
                 console.log(`No data found for ${department} - ${year}`);
             }
@@ -135,20 +134,19 @@ function displayStudentList(data) {
     }
 }
 
-// ✅ New Feature: Navigate to Year Page for Specific Department
+// ✅ Navigate to Year Page for Specific Department
 window.redirectToYear = function (department) {
     localStorage.setItem("selectedDepartment", department);
     window.location.href = `../${department}/year.html`;
 };
 
-// ✅ Handle Year Page Button Clicks to Navigate to Student Page
-document.querySelectorAll(".button").forEach((button) => {
+// ✅ Corrected: Handle Year Button Clicks Properly
+document.querySelectorAll(".year-btn").forEach((button) => {
     button.addEventListener("click", function () {
         const year = this.getAttribute("data-year");
         navigateToStudentPage(year);
     });
 });
-
 
 // Handle Year Selection in year.html
 window.selectYear = function (year) {
@@ -160,13 +158,15 @@ window.selectYear = function (year) {
     }
 };
 
-// Add Event Listeners for Year Buttons in year.html
-document.querySelectorAll(".year-btn").forEach((button) => {
-    button.addEventListener("click", function () {
-        const year = this.getAttribute("data-year");
-        selectYear(year);
+// ✅ Add Event Listeners for Year Buttons Only on year.html
+if (document.querySelectorAll(".year-btn").length > 0) {
+    document.querySelectorAll(".year-btn").forEach((button) => {
+        button.addEventListener("click", function () {
+            const year = this.getAttribute("data-year");
+            selectYear(year);
+        });
     });
-});
+}
 
 // Open Login Modal when Login Button is Clicked
 document.getElementById("loginBtn")?.addEventListener("click", openLoginModal);
