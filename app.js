@@ -40,7 +40,7 @@ window.login = function () {
             message.innerHTML = "Login successful! Redirecting...";
             message.className = "message success show";
             setTimeout(() => {
-                window.location.href = "dashboard.html"; // Redirect after successful login
+                window.location.href = "dept.html"; // Redirect after successful login
             }, 1500);
         })
         .catch((error) => {
