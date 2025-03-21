@@ -75,19 +75,19 @@ window.onclick = function (event) {
     }
 };
 
-// ✅ Navigate to Year Page for Specific Department
 window.redirectToYear = function (department) {
     localStorage.setItem("selectedDepartment", department);
-    window.location.href = `../${department}/year.html`;
+    window.location.href = `year.html?dept=${department}`;
 };
 
-// ✅ Corrected: Handle Year Button Clicks Properly
-document.querySelectorAll(".year-btn").forEach((button) => {
-    button.addEventListener("click", function () {
-        const year = this.getAttribute("data-year");
-        navigateToStudentPage(year);
-    });
-});
+
+// // ✅ Corrected: Handle Year Button Clicks Properly
+// document.querySelectorAll(".year-btn").forEach((button) => {
+//     button.addEventListener("click", function () {
+//         const year = this.getAttribute("data-year");
+//         navigateToStudentPage(year);
+//     });
+// });
 
 // Handle Year Selection in year.html
 window.selectYear = function (year) {
