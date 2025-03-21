@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SDDATA</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <header>
+        <div class="container">
+            <div class="logo">
+                <h1><span class="ksr">KSR</span><span class="ce">CE</span></h1>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="#"><span>DEPART</span><a1>MENTS</a1></li>
+                </ul>
+                <div class="profile-dropdown">
+                    <img src="profile.png" alt="User Profile" class="profile-img" onclick="toggleDropdown()">
+                    <div class="dropdown-content" id="dropdownMenu">
+                        <a href="#">Profile</a>
+                        <a href="#">Settings</a>
+                        <a href="#">Logout</a>
+                    </div>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <section class="departments">
+        <div class="container">
+            <div class="button" onclick="navigateToYear('ECE')">
+                <img src="ece.png" alt="ECE">
+                <span>ECE</span>
+            </div>
+            <div class="button" onclick="navigateToYear('EEE')">
+                <img src="eee.png" alt="EEE">
+                <span>EEE</span>
+            </div>
+            <div class="button" onclick="navigateToYear('CSE')">
+                <img src="cse.png" alt="CSE">
+                <span>CSE</span>
+            </div>
+            <div class="button" onclick="navigateToYear('IT')">
+                <img src="it.png" alt="IT">
+                <span>IT</span>
+            </div>
+            <div class="button" onclick="navigateToYear('AUTO')">
+                <img src="auto.png" alt="AUTO">
+                <span>AUTO</span>
+            </div>
+            <div class="button" onclick="navigateToYear('MECH')">
+                <img src="mech.png" alt="MECH">
+                <span>MECH</span>
+            </div>
+            <div class="button" onclick="navigateToYear('CIVIL')">
+                <img src="civil.png" alt="CIVIL">
+                <span>CIVIL</span>
+            </div>
+            <div class="button" onclick="navigateToYear('SFE')">
+                <img src="sfe.png" alt="SFE">
+                <span>SFE</span>
+            </div>
+        </div>
+    </section>
+
+    <script type="module" src="app.js"></script>
+</body>
+
+</html>
