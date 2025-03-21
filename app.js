@@ -77,8 +77,9 @@ window.onclick = function (event) {
 
 window.redirectToYear = function (department) {
     localStorage.setItem("selectedDepartment", department);
-    window.location.href = `year.html?dept=${department}`;
+    window.location.href = `./${department}/year.html`; // Correct path to year.html
 };
+
 
 
 // // ✅ Corrected: Handle Year Button Clicks Properly
