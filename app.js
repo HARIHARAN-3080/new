@@ -75,65 +75,6 @@ window.onclick = function (event) {
     }
 };
 
-// // Department Navigation Function
-// window.navigateToYear = function (department) {
-//     localStorage.setItem("selectedDepartment", department);
-//     window.location.href = "year.html";
-// };
-
-// // ✅ Corrected: Navigate to Student Portal with Department & Year
-// window.navigateToStudentPage = function (year) {
-//     const selectedDept = localStorage.getItem("selectedDepartment");
-//     if (selectedDept) {
-//         window.location.href = `studentportal.html?dept=${selectedDept}&year=${year}`;
-//     } else {
-//         alert("Please select a department first!");
-//     }
-// };
-
-// // Fetch department data from Firebase
-// window.fetchDepartmentData = function (department, year) {
-//     const dbRef = ref(database, `department/${department}/${year}/students_namelist`);
-
-//     get(dbRef)
-//         .then((snapshot) => {
-//             if (snapshot.exists()) {
-//                 console.log(`Data for ${department} - ${year}`, snapshot.val());
-//                 displayStudentList(snapshot.val());
-//             } else {
-//                 console.log(`No data found for ${department} - ${year}`);
-//             }
-//         })
-//         .catch((error) => {
-//             console.error("Error fetching data:", error);
-//         });
-// };
-
-// // Display Student List Function
-// function displayStudentList(data) {
-//     const studentListContainer = document.getElementById("studentList");
-//     if (studentListContainer) {
-//         studentListContainer.innerHTML = "";
-
-//         if (data) {
-//             Object.keys(data).forEach((student) => {
-//                 const studentData = data[student].student_data || {};
-//                 const studentCard = `
-//                     <div class="student-card">
-//                         <h3>${student}</h3>
-//                         <p>Roll No: ${studentData.roll_no || "N/A"}</p>
-//                         <p>Department: ${studentData.department || "N/A"}</p>
-//                         <p>Year: ${studentData.year || "N/A"}</p>
-//                     </div>
-//                 `;
-//                 studentListContainer.innerHTML += studentCard;
-//             });
-//         } else {
-//             studentListContainer.innerHTML = "<p>No student data available.</p>";
-//         }
-//     }
-// }
-
 // ✅ Navigate to Year Page for Specific Department
 window.redirectToYear = function (department) {
     localStorage.setItem("selectedDepartment", department);
