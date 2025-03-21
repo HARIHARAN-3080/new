@@ -138,7 +138,7 @@ function displayStudentList(data) {
 // ✅ New Feature: Navigate to Year Page for Specific Department
 window.redirectToYear = function (department) {
     localStorage.setItem("selectedDepartment", department);
-    window.location.href = `year.html`;
+    window.location.href = `../${department}/year.html`;
 };
 
 // ✅ Handle Year Page Button Clicks to Navigate to Student Page
