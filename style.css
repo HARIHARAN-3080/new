@@ -1,4 +1,4 @@
-this is our css file /* Global Styles */
+/* Global Styles */
 body, html {
     margin: 0;
     padding: 0;
@@ -13,14 +13,14 @@ body, html {
     top: 0;
     left: 0;
     width: 100%;
-    height: 115%;
+    height: 100%;
     z-index: -1;
     overflow: hidden;
 }
 
 .video-background video {
     width: 100%;
-    height: 115%;
+    height: 100%;
     position: absolute;
     top: 50%;
     left: 50%;
@@ -74,7 +74,6 @@ body, html {
 .btn {
     opacity: 0.7;
     border-radius: 50px;
-    padding-right: 100px;
     display: inline-block;
     padding: 12px 20px;
     color: #fff;
@@ -109,6 +108,12 @@ header {
     width: 100%;
     top: 0;
     z-index: 1000;
+}
+
+@media (max-width: 768px) {
+    header {
+        padding: 10px 0;
+    }
 }
 
 /* Container */
@@ -188,6 +193,7 @@ nav ul li a1 {
     box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.8);
     z-index: 1;
     right: 0;
+    outline: none;
 }
 
 .dropdown-content a {
@@ -319,6 +325,7 @@ nav ul li a1 {
     font-size: 24px;
     cursor: pointer;
     color: #333;
+    transition: transform 0.3s ease-in-out;
 }
 
 .close:hover {
