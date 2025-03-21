@@ -149,6 +149,25 @@ document.querySelectorAll(".button").forEach((button) => {
     });
 });
 
+
+// Handle Year Selection in year.html
+window.selectYear = function (year) {
+    const selectedDept = localStorage.getItem("selectedDepartment");
+    if (selectedDept) {
+        window.location.href = `../studentportal.html?dept=${selectedDept}&year=${year}`;
+    } else {
+        alert("Please select a department first!");
+    }
+};
+
+// Add Event Listeners for Year Buttons in year.html
+document.querySelectorAll(".year-btn").forEach((button) => {
+    button.addEventListener("click", function () {
+        const year = this.getAttribute("data-year");
+        selectYear(year);
+    });
+});
+
 // Open Login Modal when Login Button is Clicked
 document.getElementById("loginBtn")?.addEventListener("click", openLoginModal);
 
