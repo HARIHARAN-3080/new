@@ -1,216 +1,69 @@
-// ====== Import Firebase Modules ======
-import { initializeApp } from "https://www.gstatic.com/firebasejs/11.2.0/firebase-app.js";
-import { getDatabase, ref, set, get } from "https://www.gstatic.com/firebasejs/11.2.0/firebase-database.js";
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SDDATA - Login</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Background Video -->
+    <div class="video-background">
+        <video autoplay muted loop>
+            <source src="D:/DATABASE/accerts/vdo1.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+    </div>
 
-// ====== Firebase Configuration ======
-const firebaseConfig = {
-    apiKey: "AIzaSyDJZYPHza-***************",
-    authDomain: "signin-5a455.firebaseapp.com",
-    projectId: "signin-5a455",
-    storageBucket: "signin-5a455.appspot.com",
-    messagingSenderId: "605090661173",
-    appId: "1:605090661173:web:123456abcd",
-};
+    <!-- Gradient Overlay -->
+    <div class="overlay"></div>
 
-// ====== Initialize Firebase ======
-const app = initializeApp(firebaseConfig);
-const database = getDatabase(app);
-
-// ====== DOMContentLoaded to Ensure DOM is Ready ======
-document.addEventListener("DOMContentLoaded", function () {
-    loadStudentData(); // Auto load student data on page load
-
-    // Add event listener to student form
-    const studentForm = document.getElementById("studentForm");
-    if (studentForm) {
-        studentForm.addEventListener("submit", async (e) => {
-            e.preventDefault();
-            await addStudentData();
-        });
-    }
-});
-
-// ====== Show and Close Add Student Form ======
-window.showForm = function () {
-    const overlay = document.getElementById("popupOverlay");
-    const form = document.getElementById("popupForm");
-
-    if (overlay && form) {
-        overlay.style.display = "block";
-        form.style.display = "block";
-    } else {
-        console.error("❗️ Popup overlay or form not found.");
-    }
-};
-
-window.closeForm = function () {
-    const overlay = document.getElementById("popupOverlay");
-    const form = document.getElementById("popupForm");
-
-    if (overlay && form) {
-        overlay.style.display = "none";
-        form.style.display = "none";
-    } else {
-        console.error("❗️ Popup overlay or form not found.");
-    }
-};
-
-// ====== Validate Email and URL ======
-function isValidEmail(email) {
-    const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-z]{2,}$/;
-    return emailPattern.test(email);
-}
-
-function isValidURL(url) {
-    try {
-        new URL(url);
-        return true;
-    } catch (_) {
-        return false;
-    }
-}
-
-// ====== Add Student Data ======
-async function addStudentData() {
-    const studentData = {
-        name: document.getElementById("studentName").value.trim(),
-        email: document.getElementById("studentEmail").value.trim(),
-        registerNumber: document.getElementById("registerNumber").value.trim(),
-        mobileNumber: document.getElementById("mobileNumber").value.trim(),
-        nativePlace: document.getElementById("nativePlace").value.trim(),
-        address: document.getElementById("address").value.trim(),
-        collegeName: document.getElementById("collegeName").value.trim(),
-        department: document.getElementById("department").value.trim(),
-        year: document.getElementById("year").value.trim(),
-        section: document.getElementById("section").value.trim(),
-        resumeLink: document.getElementById("resumeLink").value.trim(),
-    };
-
-    // ====== Validate Required Fields ======
-    if (!studentData.name || !studentData.email || !studentData.registerNumber) {
-        alert("❗️ Please fill in all required fields.");
-        return;
-    }
-
-    if (!isValidEmail(studentData.email)) {
-        alert("❗️ Invalid email format.");
-        return;
-    }
-
-    if (studentData.resumeLink && !isValidURL(studentData.resumeLink)) {
-        alert("❗️ Invalid URL for resume link.");
-        return;
-    }
-
-    const department = studentData.department.toLowerCase();
-    const year = `year-${studentData.year}`;
-    const studentName = studentData.name.replace(/\s+/g, "_").toLowerCase();
-
-    // Path: department/year/students_namelist/student_name/student_data
-    const studentRef = ref(database, `department/${department}/${year}/students_namelist/${studentName}/student_data`);
-
-    await set(studentRef, studentData)
-        .then(() => {
-            alert("✅ Student added successfully!");
-            closeForm();
-            location.reload();
-        })
-        .catch((error) => {
-            console.error("❗️ Error saving student:", error);
-        });
-}
-
-// ====== Fetch Student Data for Display ======
-window.loadStudentData = function () {
-    const urlParams = new URLSearchParams(window.location.search);
-    const department = urlParams.get("dept");
-    const year = urlParams.get("year");
-
-    if (!department || !year) {
-        console.error("❗️ Department or Year missing in URL!");
-        document.getElementById("studentList").innerHTML = "<p>⚠️ Please select a department and year!</p>";
-        return;
-    }
-
-    const studentListRef = ref(database, `department/${department}/${year}/students_namelist`);
-
-    get(studentListRef)
-        .then((snapshot) => {
-            if (snapshot.exists() && Object.keys(snapshot.val()).length > 0) {
-                displayStudentList(snapshot.val());
-            } else {
-                document.getElementById("studentList").innerHTML = "<p>⚠️ No data available.</p>";
-            }
-        })
-        .catch((error) => {
-            console.error("❗️ Error fetching data:", error);
-            document.getElementById("studentList").innerHTML = "<p>❗️ Unable to load student data.</p>";
-        });
-};
-
-// ====== Display Student List ======
-function displayStudentList(data) {
-    const studentListContainer = document.getElementById("studentList");
-    studentListContainer.innerHTML = "";
-
-    if (data) {
-        Object.keys(data).forEach((student) => {
-            const studentData = data[student]?.student_data || {};
-            const studentCard = `
-                <div class="student-card" onclick="showStudentProfile('${student}')">
-                    <h3>${studentData.name}</h3>
-                    <p>${studentData.department} - Year ${studentData.year}</p>
-                </div>
-            `;
-            studentListContainer.innerHTML += studentCard;
-        });
-    } else {
-        studentListContainer.innerHTML = "<p>⚠️ No student data available.</p>";
-    }
-}
-
-// ====== Show Student Profile on Click ======
-window.showStudentProfile = function (student) {
-    const urlParams = new URLSearchParams(window.location.search);
-    const department = urlParams.get("dept");
-    const year = urlParams.get("year");
-
-    const studentRef = ref(database, `department/${department}/${year}/students_namelist/${student}/student_data`);
-
-    get(studentRef)
-        .then((snapshot) => {
-            if (snapshot.exists()) {
-                displayProfileDetails(snapshot.val());
-            } else {
-                alert("⚠️ Student data not found!");
-            }
-        })
-        .catch((error) => {
-            console.error("❗️ Error fetching student profile:", error);
-        });
-};
-
-// ====== Display Profile Details ======
-function displayProfileDetails(studentData) {
-    const profileDetails = `
-        <div class="profile-card">
-            <h2>${studentData.name}</h2>
-            <p>Email: ${studentData.email}</p>
-            <p>Register Number: ${studentData.registerNumber}</p>
-            <p>Mobile: ${studentData.mobileNumber}</p>
-            <p>Native Place: ${studentData.nativePlace}</p>
-            <p>Address: ${studentData.address}</p>
-            <p>College: ${studentData.collegeName}</p>
-            <p>Department: ${studentData.department}</p>
-            <p>Year: ${studentData.year}</p>
-            <p>Section: ${studentData.section}</p>
-            <p><a href="${studentData.resumeLink}" target="_blank">View Resume</a></p>
+    <header>
+        <div class="container">
+            <div class="logo">
+                <h1><span class="ksr">KSR</span><span class="ce">CE</span></h1>
+            </div>
         </div>
-    `;
-    document.getElementById("profileDetails").innerHTML = profileDetails;
-}
+    </header>
 
-// ====== Auto Load Student Data on Page Load ======
-window.onload = function () {
-    loadStudentData();
-};
+    <section class="hero">
+        <div class="hero-content">
+            <h2>STUDENTS <span>DATABASE</span></h2>
+            <h3>MAKE AN <span>IMPACT</span></h3>
+            <button id="loginBtn" onclick="openLoginModal()">Login</button>
+            <a href="D:/DATABASE/test/requestbox.html">
+                <button class="btn" id="request">Request for access</button>
+            </a>
+        </div>
+    </section>
+
+    <!-- Button to Open Modal -->
+    <button class="btn" id="openModalBtn">DATABASE</button>
+
+    <!-- Login Modal -->
+    <div id="loginModal" class="login-modal">
+        <div class="modal-content">
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h2>Login</h2>
+                <span class="close" onclick="closeLoginModal()">&times;</span>
+            </div>
+
+            <!-- Modal Body -->
+            <div class="modal-body">
+                <input type="email" id="email" placeholder="Email">
+                <input type="password" id="password" placeholder="Password">
+                <button onclick="login()">Login</button>
+            </div>
+
+            <!-- Modal Footer -->
+            <div class="modal-footer">
+                <div id="message" class="message"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Firebase SDK and Main Script -->
+    <script type="module" src="app.js"></script>
+</body>
+</html>
