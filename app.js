@@ -4,12 +4,12 @@ import { getDatabase, ref, set, get } from "https://www.gstatic.com/firebasejs/1
 
 // ====== Firebase Configuration ======
 const firebaseConfig = {
-    apiKey: "YOUR_API_KEY",
-    authDomain: "YOUR_AUTH_DOMAIN",
-    projectId: "YOUR_PROJECT_ID",
-    storageBucket: "YOUR_STORAGE_BUCKET",
-    messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
-    appId: "YOUR_APP_ID"
+    apiKey: "AIzaSyDJZYPHzaWbQm328L8SXDzvH52X5XB-vJw",
+    authDomain: "signin-5a455.firebaseapp.com",
+    projectId: "signin-5a455",
+    storageBucket: "signin-5a455.firebasestorage.app",
+    messagingSenderId: "330194380982",
+    appId: "1:330194380982:web:9d5b942421760a6c8f1e17"
 };
 
 // Initialize Firebase
