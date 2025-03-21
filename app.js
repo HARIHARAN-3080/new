@@ -51,6 +51,24 @@ window.login = function () {
         });
 };
 
+// Profile Dropdown
+window.toggleProfileDropdown = function () {
+    const dropdown = document.getElementById("dropdownContent");
+    dropdown.classList.toggle("show");
+};
+
+// Close dropdown when clicking outside
+window.onclick = function (event) {
+    if (!event.target.matches(".profile-img")) {
+        const dropdowns = document.getElementsByClassName("dropdown-content");
+        for (let i = 0; i < dropdowns.length; i++) {
+            if (dropdowns[i].classList.contains("show")) {
+                dropdowns[i].classList.remove("show");
+            }
+        }
+    }
+};
+
 // Department Navigation Function
 window.navigateToYear = function (department) {
     // Redirect to the selected department's year page
@@ -65,6 +83,7 @@ window.fetchDepartmentData = function (department, year) {
         .then((snapshot) => {
             if (snapshot.exists()) {
                 console.log(`Data for ${department} - ${year}`, snapshot.val());
+                displayStudentList(snapshot.val()); // Display data on the page
             } else {
                 console.log(`No data found for ${department} - ${year}`);
             }
@@ -73,3 +92,35 @@ window.fetchDepartmentData = function (department, year) {
             console.error("Error fetching data:", error);
         });
 };
+
+// Display Student List Function
+function displayStudentList(data) {
+    const studentListContainer = document.getElementById("studentList");
+    studentListContainer.innerHTML = "";
+
+    if (data) {
+        Object.keys(data).forEach((student) => {
+            const studentData = data[student].student_data;
+            const studentCard = `
+                <div class="student-card">
+                    <h3>${student}</h3>
+                    <p>Roll No: ${studentData.roll_no || "N/A"}</p>
+                    <p>Department: ${studentData.department || "N/A"}</p>
+                    <p>Year: ${studentData.year || "N/A"}</p>
+                </div>
+            `;
+            studentListContainer.innerHTML += studentCard;
+        });
+    } else {
+        studentListContainer.innerHTML = "<p>No student data available.</p>";
+    }
+}
+
+// Open Login Modal when Login Button is Clicked
+document.getElementById("loginBtn")?.addEventListener("click", openLoginModal);
+
+// Close Modal when Close Button is Clicked
+document.getElementById("closeModal")?.addEventListener("click", closeLoginModal);
+
+// Login on Submit Button Click
+document.getElementById("loginSubmit")?.addEventListener("click", login);
