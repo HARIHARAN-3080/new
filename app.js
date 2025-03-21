@@ -12,13 +12,13 @@ const firebaseConfig = {
     appId: "1:330194380982:web:9d5b942421760a6c8f1e17"
 };
 
-// ====== Initialize Firebase ======
+// Initialize Firebase
 const app = initializeApp(firebaseConfig);
 const database = getDatabase(app);
 
 // ====== DOMContentLoaded to Ensure DOM is Ready ======
 document.addEventListener("DOMContentLoaded", function () {
-    loadStudentData(); // Auto load student data on page load
+    loadStudentData(); // Automatically load data on page load
 
     // Add event listener to student form
     const studentForm = document.getElementById("studentForm");
@@ -55,50 +55,25 @@ window.closeForm = function () {
     }
 };
 
-// ====== Validate Email and URL ======
-function isValidEmail(email) {
-    const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-z]{2,}$/;
-    return emailPattern.test(email);
-}
-
-function isValidURL(url) {
-    try {
-        new URL(url);
-        return true;
-    } catch (_) {
-        return false;
-    }
-}
-
 // ====== Add Student Data ======
 async function addStudentData() {
     const studentData = {
-        name: document.getElementById("studentName").value.trim(),
-        email: document.getElementById("studentEmail").value.trim(),
-        registerNumber: document.getElementById("registerNumber").value.trim(),
-        mobileNumber: document.getElementById("mobileNumber").value.trim(),
-        nativePlace: document.getElementById("nativePlace").value.trim(),
-        address: document.getElementById("address").value.trim(),
-        collegeName: document.getElementById("collegeName").value.trim(),
-        department: document.getElementById("department").value.trim(),
-        year: document.getElementById("year").value.trim(),
-        section: document.getElementById("section").value.trim(),
-        resumeLink: document.getElementById("resumeLink").value.trim(),
+        name: document.getElementById("studentName").value,
+        email: document.getElementById("studentEmail").value,
+        registerNumber: document.getElementById("registerNumber").value,
+        mobileNumber: document.getElementById("mobileNumber").value,
+        nativePlace: document.getElementById("nativePlace").value,
+        address: document.getElementById("address").value,
+        collegeName: document.getElementById("collegeName").value,
+        department: document.getElementById("department").value,
+        year: document.getElementById("year").value,
+        section: document.getElementById("section").value,
+        resumeLink: document.getElementById("resumeLink").value,
     };
 
-    // ====== Validate Required Fields ======
+    // Validate Form Input
     if (!studentData.name || !studentData.email || !studentData.registerNumber) {
         alert("❗️ Please fill in all required fields.");
-        return;
-    }
-
-    if (!isValidEmail(studentData.email)) {
-        alert("❗️ Invalid email format.");
-        return;
-    }
-
-    if (studentData.resumeLink && !isValidURL(studentData.resumeLink)) {
-        alert("❗️ Invalid URL for resume link.");
         return;
     }
 
@@ -128,7 +103,6 @@ window.loadStudentData = function () {
 
     if (!department || !year) {
         console.error("❗️ Department or Year missing in URL!");
-        document.getElementById("studentList").innerHTML = "<p>⚠️ Please select a department and year!</p>";
         return;
     }
 
@@ -136,7 +110,7 @@ window.loadStudentData = function () {
 
     get(studentListRef)
         .then((snapshot) => {
-            if (snapshot.exists() && Object.keys(snapshot.val()).length > 0) {
+            if (snapshot.exists()) {
                 displayStudentList(snapshot.val());
             } else {
                 document.getElementById("studentList").innerHTML = "<p>⚠️ No data available.</p>";
@@ -144,7 +118,6 @@ window.loadStudentData = function () {
         })
         .catch((error) => {
             console.error("❗️ Error fetching data:", error);
-            document.getElementById("studentList").innerHTML = "<p>❗️ Unable to load student data.</p>";
         });
 };
 
