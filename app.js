@@ -128,6 +128,20 @@ function displayStudentList(data) {
     }
 }
 
+// ✅ New Feature: Navigate to Year Page for Specific Department
+window.redirectToYear = function (department) {
+    localStorage.setItem("selectedDepartment", department);
+    window.location.href = `../${department}/year.html`;
+};
+
+// ✅ Handle Year Page Button Clicks to Navigate to Student Page
+document.querySelectorAll(".button").forEach((button) => {
+    button.addEventListener("click", function () {
+        const year = this.getAttribute("data-year");
+        navigateToStudentPage(year);
+    });
+});
+
 // Open Login Modal when Login Button is Clicked
 document.getElementById("loginBtn")?.addEventListener("click", openLoginModal);
 
@@ -137,10 +151,3 @@ document.getElementById("closeModal")?.addEventListener("click", closeLoginModal
 // Login on Submit Button Click
 document.getElementById("loginSubmit")?.addEventListener("click", login);
 
-// ✅ New Feature: Handle Year Page Button Clicks
-document.querySelectorAll(".button").forEach((button) => {
-    button.addEventListener("click", function () {
-        const year = this.getAttribute("data-year");
-        navigateToStudentPage(year);
-    });
-});
