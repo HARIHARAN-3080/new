@@ -58,7 +58,7 @@ window.login = function () {
 
 // Profile Dropdown
 window.toggleProfileDropdown = function () {
-    const dropdown = document.getElementById("dropdownMenu");
+    const dropdown = document.getElementById("dropdownContent");
     dropdown?.classList.toggle("show");
 };
 
@@ -138,7 +138,7 @@ function displayStudentList(data) {
 // ✅ New Feature: Navigate to Year Page for Specific Department
 window.redirectToYear = function (department) {
     localStorage.setItem("selectedDepartment", department);
-    window.location.href = `../${department}/year.html`;
+    window.location.href = `year.html`;
 };
 
 // ✅ Handle Year Page Button Clicks to Navigate to Student Page
