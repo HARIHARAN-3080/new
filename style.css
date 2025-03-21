@@ -20,11 +20,8 @@ body, html {
 
 .video-background video {
     width: 100%;
-    height: 115%;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+    height: 100%;
+    object-fit: cover;
 }
 
 /* Gradient Overlay */
@@ -71,7 +68,7 @@ body, html {
 }
 
 /* Button Styles */
-.btn {
+.btn, .modal button {
     opacity: 0.7;
     border-radius: 50px;
     padding-right: 100px;
@@ -84,7 +81,7 @@ body, html {
     transition: background 0.3s, transform 0.3s;
 }
 
-.btn:hover {
+.btn:hover, .modal button:hover {
     opacity: 1;
     background: #f0c040;
     color: #000;
@@ -221,6 +218,7 @@ nav ul li a1 {
     padding: 1rem;
 }
 
+/* Department Buttons */
 .button {
     background-color: rgba(255, 255, 255, 0.8);
     color: #000;
@@ -229,7 +227,7 @@ nav ul li a1 {
     font-size: 1rem;
     border-radius: 8px;
     cursor: pointer;
-    transition: background-color 0.3s, opacity 0.3s;
+    transition: background-color 0.3s, box-shadow 0.3s, transform 0.3s;
     padding: 1rem;
     display: flex;
     flex-direction: column;
@@ -240,6 +238,7 @@ nav ul li a1 {
     width: 200px;
     height: 200px;
     margin-bottom: 10px;
+    border-radius: 8px;
 }
 
 .button span {
@@ -250,7 +249,8 @@ nav ul li a1 {
 
 .button:hover {
     background-color: rgba(255, 255, 255, 0.7);
-    opacity: 0.9;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+    transform: scale(1.05);
 }
 
 /* Responsive Styles */
@@ -263,6 +263,20 @@ nav ul li a1 {
 @media (max-width: 480px) {
     .button {
         width: calc(100% - 1rem);
+    }
+
+    nav ul {
+        display: none;
+        flex-direction: column;
+        background-color: rgba(0, 0, 0, 0.9);
+        position: absolute;
+        top: 60px;
+        left: 0;
+        width: 100%;
+    }
+
+    nav ul.show {
+        display: flex;
     }
 }
 
@@ -319,6 +333,7 @@ nav ul li a1 {
     font-size: 24px;
     cursor: pointer;
     color: #333;
+    transition: transform 0.3s ease-in-out;
 }
 
 .close:hover {
@@ -341,23 +356,6 @@ input:focus {
     border-color: #f0c040;
     outline: none;
     box-shadow: 0 0 8px rgba(240, 192, 64, 0.5);
-}
-
-/* Button Styling for Modal */
-.modal button {
-    padding: 12px 20px;
-    background-color: #4CAF50;
-    border: none;
-    color: white;
-    cursor: pointer;
-    font-size: 16px;
-    width: 100%;
-    margin-top: 20px;
-    border-radius: 5px;
-}
-
-.modal button:hover {
-    background-color: #45a049;
 }
 
 /* Message Box */

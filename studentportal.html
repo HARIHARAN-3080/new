@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Student Portal</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div id="studentsSection" class="students-section">
+        <button class="add-student-btn" onclick="showForm()">Add Student</button>
+        <div id="studentList"></div>
+    </div>
+
+    <div id="popupOverlay" class="popup-overlay" onclick="closeForm()"></div>
+    <div id="popupForm" class="popup-form">
+        <form id="studentForm">
+            <h2>Add Student Details</h2>
+            <label for="profileImageUpload">Profile Image:</label>
+            <input type="file" id="profileImageUpload" accept="image/*" required>
+
+            <label for="studentName">Name:</label>
+            <input type="text" id="studentName" required>
+
+            <label for="studentEmail">Email:</label>
+            <input type="email" id="studentEmail" required>
+
+            <label for="registerNumber">Register Number:</label>
+            <input type="text" id="registerNumber" required>
+
+            <label for="mobileNumber">Mobile Number:</label>
+            <input type="text" id="mobileNumber" required>
+
+            <label for="nativePlace">Native Place:</label>
+            <input type="text" id="nativePlace" required>
+
+            <label for="address">Address:</label>
+            <textarea id="address" required></textarea>
+
+            <label for="collegeName">College Name:</label>
+            <input type="text" id="collegeName" required>
+
+            <label for="department">Department:</label>
+            <input type="text" id="department" required>
+
+            <label for="year">Year:</label>
+            <input type="text" id="year" required>
+
+            <label for="section">Section:</label>
+            <input type="text" id="section" required>
+
+            <label for="resumeLink">Resume Link:</label>
+            <input type="url" id="resumeLink">
+
+            <button type="submit">Save Student</button>
+            <button type="button" onclick="closeForm()">Cancel</button>
+        </form>
+    </div>
+
+    <div id="profileDetails" class="profile-details"></div>
+
+    <script src="app.js" type="module"></script>
+</body>
+</html>
