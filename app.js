@@ -16,6 +16,15 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const database = getDatabase(app);
 
+// ====== Open & Close Login Modal ======
+window.openLoginModal = function () {
+    document.getElementById("loginModal").style.display = "block";
+};
+
+window.closeLoginModal = function () {
+    document.getElementById("loginModal").style.display = "none";
+};
+
 // ====== DOM Ready ======
 document.addEventListener("DOMContentLoaded", function () {
     loadStudentData();
@@ -28,7 +37,7 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 });
 
-// ====== Show and Close Add Student Form ======
+// ====== Show & Close Add Student Form ======
 window.showForm = function () {
     document.getElementById("popupOverlay").style.display = "block";
     document.getElementById("popupForm").style.display = "block";
@@ -56,7 +65,7 @@ async function addStudentData() {
     };
 
     if (!studentData.name || !studentData.email || !studentData.registerNumber) {
-        alert("❗️ Please fill in all required fields.");
+        alert("❗️ Required fields: Name, Email, and Register Number.");
         return;
     }
 
@@ -76,8 +85,8 @@ async function addStudentData() {
 // ====== Fetch Student Data for Display ======
 window.loadStudentData = function () {
     const urlParams = new URLSearchParams(window.location.search);
-    const department = urlParams.get("dept");
-    const year = urlParams.get("year");
+    const department = urlParams.get("dept") || "defaultDept";
+    const year = urlParams.get("year") || "year-1";
 
     if (!department || !year) {
         console.error("❗️ Department or Year missing in URL!");
@@ -123,8 +132,8 @@ function displayStudentList(data) {
 // ====== Show Student Profile on Click ======
 window.showStudentProfile = function (student) {
     const urlParams = new URLSearchParams(window.location.search);
-    const department = urlParams.get("dept");
-    const year = urlParams.get("year");
+    const department = urlParams.get("dept") || "defaultDept";
+    const year = urlParams.get("year") || "year-1";
 
     const studentRef = ref(database, `department/${department}/${year}/students_namelist/${student}/student_data`);
 
