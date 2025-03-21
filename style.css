@@ -1,0 +1,263 @@
+/* Global Styles */
+body, html {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    height: 100%;
+    overflow: hidden;
+}
+
+/* Background Video */
+.video-background {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 115%;
+    z-index: -1;
+    overflow: hidden;
+}
+
+.video-background video {
+    width: 100%;
+    height: 115%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+/* Gradient Overlay */
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(to bottom, rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.3));
+    z-index: 1;
+}
+
+/* Hero Section */
+.hero {
+    height: 100vh;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    text-align: left;
+    position: relative;
+    z-index: 3;
+    padding-right: 5%;
+}
+
+.hero-content {
+    max-width: 400px;
+    color: #fff;
+    animation: fadeIn 1.5s ease-in-out;
+}
+
+/* Fade-In Animation */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.hero-content h2 {
+    font-size: 48px;
+    margin-bottom: 10px;
+}
+
+.hero-content h2 span, .hero-content h3 {
+    color: #f0c040;
+}
+
+.hero-content h3 {
+    font-size: 38px;
+    margin-bottom: 20px;
+}
+
+/* Button Styles */
+.btn {
+    opacity: 0.7;
+    border-radius: 50px;
+    padding-right: 100px;
+    display: inline-block;
+    padding: 12px 20px;
+    color: #fff;
+    text-decoration: none;
+    font-size: 16px;
+    background-color: #f0c040;
+    transition: background 0.3s, transform 0.3s;
+}
+
+.btn:hover {
+    opacity: 1;
+    background: #f0c040;
+    color: #000;
+    animation: bounce 0.5s ease-in-out;
+}
+
+/* Button Bounce Animation */
+@keyframes bounce {
+    0%, 100% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.2);
+    }
+}
+
+/* Header */
+header {
+    background: rgba(0, 0, 0, 1);
+    padding: 20px 0;
+    position: relative;
+    width: 120%;
+    height: 63px;
+    top: 0;
+    z-index: 1000;
+}
+
+.container {
+    margin-left: 10px;
+    margin-top: 10px;
+    width: 80%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo h1 {
+    font-family: 'Times New Roman', serif;
+    font-weight: bold;
+    margin: 0;
+}
+
+.logo .ksr {
+    color: #f0c040;
+}
+
+.logo .ce {
+    color: #fff;
+}
+
+/* Login Modal */
+.login-modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6);
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out;
+}
+
+.login-modal.show {
+    display: flex;
+    opacity: 1;
+}
+
+/* Modal Content */
+.modal-content {
+    background-color: white;
+    padding: 40px;
+    border-radius: 12px;
+    width: 100%;
+    max-width: 420px;
+    text-align: center;
+    box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
+    animation: fadeInModal 0.5s ease-in-out;
+}
+
+/* Modal Animation */
+@keyframes fadeInModal {
+    from {
+        opacity: 0;
+        transform: scale(0.9);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+/* Close Button */
+.close {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    font-size: 24px;
+    cursor: pointer;
+    color: #333;
+}
+
+.close:hover {
+    color: red;
+    transform: rotate(90deg);
+}
+
+/* Input Fields */
+input {
+    width: 100%;
+    padding: 12px;
+    margin-top: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 16px;
+    transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+input:focus {
+    border-color: #f0c040;
+    outline: none;
+    box-shadow: 0 0 8px rgba(240, 192, 64, 0.5);
+}
+
+/* Button Styling for Modal */
+.modal button {
+    padding: 12px 20px;
+    background-color: #4CAF50;
+    border: none;
+    color: white;
+    cursor: pointer;
+    font-size: 16px;
+    width: 100%;
+    margin-top: 20px;
+    border-radius: 5px;
+}
+
+.modal button:hover {
+    background-color: #45a049;
+}
+
+/* Message Box */
+.message {
+    margin-top: 15px;
+    font-size: 16px;
+    font-weight: bold;
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out;
+}
+
+.message.show {
+    opacity: 1;
+}
+
+.success {
+    color: green;
+}
+
+.error {
+    color: red;
+}

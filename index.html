@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SDDATA - Login</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Background Video -->
+    <div class="video-background">
+        <video autoplay muted loop>
+            <source src="D:/DATABASE/accerts/vdo1.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+    </div>
+
+    <!-- Gradient Overlay -->
+    <div class="overlay"></div>
+
+    <header>
+        <div class="container">
+            <div class="logo">
+                <h1><span class="ksr">KSR</span><span class="ce">CE</span></h1>
+            </div>
+        </div>
+    </header>
+
+    <section class="hero">
+        <div class="hero-content">
+            <h2>STUDENTS <span>DATABASE</span></h2>
+            <h3>MAKE AN <span>IMPACT</span></h3>
+            <button class="btn" onclick="openLoginModal()">DATABASE LOGIN</button>
+            <a href="D:/DATABASE/test/requestbox.html">
+                <button class="btn" id="request">Request for access</button>
+            </a>
+        </div>
+    </section>
+
+    <!-- Button to Open Modal -->
+    <button class="btn" id="openModalBtn">DATABASE</button>
+
+    <!-- Login Modal -->
+    <div id="loginModal" class="login-modal">
+        <div class="modal-content">
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h2>Login</h2>
+                <span class="close" onclick="closeLoginModal()">&times;</span>
+            </div>
+
+            <!-- Modal Body -->
+            <div class="modal-body">
+                <input type="email" id="email" placeholder="Email">
+                <input type="password" id="password" placeholder="Password">
+                <button onclick="login()">Login</button>
+            </div>
+
+            <!-- Modal Footer -->
+            <div class="modal-footer">
+                <div id="message" class="message"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Firebase SDK and Main Script -->
+    <script type="module" src="app.js"></script>
+</body>
+</html>
