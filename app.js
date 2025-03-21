@@ -74,7 +74,7 @@ window.navigateToYear = function (department) {
     // Save department to localStorage
     localStorage.setItem("selectedDepartment", department);
     // Redirect to year.html
-    location.href = `year.html`;
+    location.href = "year.html";
 };
 
 // ✅ New Function: Navigate to Student Portal with Department & Year
