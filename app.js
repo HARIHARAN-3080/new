@@ -1,36 +1,63 @@
-// Import Firebase Modules
+// ====== Import Firebase Modules ======
 import { initializeApp } from "https://www.gstatic.com/firebasejs/11.2.0/firebase-app.js";
-import { getDatabase, ref, set, push, get } from "https://www.gstatic.com/firebasejs/11.2.0/firebase-database.js";
+import { getDatabase, ref, set, get } from "https://www.gstatic.com/firebasejs/11.2.0/firebase-database.js";
 
 // ====== Firebase Configuration ======
 const firebaseConfig = {
-    apiKey: "AIzaSyDJZYPHza-***************",
+    apiKey: "AIzaSyDJZYPHzaWbQm328L8SXDzvH52X5XB-vJw",
     authDomain: "signin-5a455.firebaseapp.com",
     projectId: "signin-5a455",
-    storageBucket: "signin-5a455.appspot.com",
-    messagingSenderId: "605090661173",
-    appId: "1:605090661173:web:123456abcd",
+    storageBucket: "signin-5a455.firebasestorage.app",
+    messagingSenderId: "330194380982",
+    appId: "1:330194380982:web:9d5b942421760a6c8f1e17"
 };
+
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 const database = getDatabase(app);
 
+// ====== DOMContentLoaded to Ensure DOM is Ready ======
+document.addEventListener("DOMContentLoaded", function () {
+    loadStudentData(); // Automatically load data on page load
+
+    // Add event listener to student form
+    const studentForm = document.getElementById("studentForm");
+    if (studentForm) {
+        studentForm.addEventListener("submit", async (e) => {
+            e.preventDefault();
+            await addStudentData();
+        });
+    }
+});
+
 // ====== Show and Close Add Student Form ======
 window.showForm = function () {
-    document.getElementById("popupOverlay").style.display = "block";
-    document.getElementById("popupForm").style.display = "block";
+    const overlay = document.getElementById("popupOverlay");
+    const form = document.getElementById("popupForm");
+
+    if (overlay && form) {
+        overlay.style.display = "block";
+        form.style.display = "block";
+    } else {
+        console.error("❗️ Popup overlay or form not found.");
+    }
 };
 
 window.closeForm = function () {
-    document.getElementById("popupOverlay").style.display = "none";
-    document.getElementById("popupForm").style.display = "none";
+    const overlay = document.getElementById("popupOverlay");
+    const form = document.getElementById("popupForm");
+
+    if (overlay && form) {
+        overlay.style.display = "none";
+        form.style.display = "none";
+    } else {
+        console.error("❗️ Popup overlay or form not found.");
+    }
 };
 
 // ====== Add Student Data ======
-document.getElementById("studentForm").addEventListener("submit", async (e) => {
-    e.preventDefault();
-
+async function addStudentData() {
     const studentData = {
         name: document.getElementById("studentName").value,
         email: document.getElementById("studentEmail").value,
@@ -44,6 +71,12 @@ document.getElementById("studentForm").addEventListener("submit", async (e) => {
         section: document.getElementById("section").value,
         resumeLink: document.getElementById("resumeLink").value,
     };
+
+    // Validate Form Input
+    if (!studentData.name || !studentData.email || !studentData.registerNumber) {
+        alert("❗️ Please fill in all required fields.");
+        return;
+    }
 
     const department = studentData.department.toLowerCase();
     const year = `year-${studentData.year}`;
@@ -61,7 +94,7 @@ document.getElementById("studentForm").addEventListener("submit", async (e) => {
         .catch((error) => {
             console.error("❗️ Error saving student:", error);
         });
-});
+}
 
 // ====== Fetch Student Data for Display ======
 window.loadStudentData = function () {
@@ -70,7 +103,7 @@ window.loadStudentData = function () {
     const year = urlParams.get("year");
 
     if (!department || !year) {
-        alert("❗️ Department or Year missing!");
+        console.error("❗️ Department or Year missing in URL!");
         return;
     }
 
@@ -151,7 +184,7 @@ function displayProfileDetails(studentData) {
     document.getElementById("profileDetails").innerHTML = profileDetails;
 }
 
-// ====== Auto Load Student Data ======
+// ====== Auto Load Student Data on Page Load ======
 window.onload = function () {
     loadStudentData();
 };
