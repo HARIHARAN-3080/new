@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SDDATA</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="dept.css">
 </head>
 
 <body>
@@ -16,10 +16,10 @@
             </div>
             <nav>
                 <ul>
-                    <li><a href="#"><span>DEPART</span><span>MENTS</span></a></li>
+                    <li><a href="#"><span>DEPART</span><a1>MENTS</a1></li>
                 </ul>
                 <div class="profile-dropdown">
-                    <img src="profile.png" alt="User Profile" class="profile-img" onclick="toggleDropdown()">
+                    <img src="profile-icon.png" alt="User Profile" class="profile-img" onclick="toggleDropdown()">
                     <div class="dropdown-content" id="dropdownMenu">
                         <a href="#">Profile</a>
                         <a href="#">Settings</a>
@@ -32,42 +32,42 @@
 
     <section class="departments">
         <div class="container">
-            <div class="button" onclick="navigateToYear('ECE')">
+            <div class="button" onclick="redirectToYear('ECE')">
                 <img src="ece.png" alt="ECE">
                 <span>ECE</span>
             </div>
-            <div class="button" onclick="navigateToYear('EEE')">
+            <div class="button" onclick="redirectToYear('EEE')">
                 <img src="eee.png" alt="EEE">
                 <span>EEE</span>
             </div>
-            <div class="button" onclick="navigateToYear('CSE')">
+            <div class="button" onclick="redirectToYear('CSE')">
                 <img src="cse.png" alt="CSE">
                 <span>CSE</span>
             </div>
-            <div class="button" onclick="navigateToYear('IT')">
+            <div class="button" onclick="redirectToYear('IT')">
                 <img src="it.png" alt="IT">
                 <span>IT</span>
             </div>
-            <div class="button" onclick="navigateToYear('AUTO')">
+            <div class="button" onclick="redirectToYear('AUTO')">
                 <img src="auto.png" alt="AUTO">
                 <span>AUTO</span>
             </div>
-            <div class="button" onclick="navigateToYear('MECH')">
+            <div class="button" onclick="redirectToYear('MECH')">
                 <img src="mech.png" alt="MECH">
                 <span>MECH</span>
             </div>
-            <div class="button" onclick="navigateToYear('CIVIL')">
+            <div class="button" onclick="redirectToYear('CIVIL')">
                 <img src="civil.png" alt="CIVIL">
                 <span>CIVIL</span>
             </div>
-            <div class="button" onclick="navigateToYear('SFE')">
+            <div class="button" onclick="redirectToYear('SFE')">
                 <img src="sfe.png" alt="SFE">
                 <span>SFE</span>
             </div>
         </div>
     </section>
 
-    <script type="module" src="app.js"></script>
+    <script src="dept.js"></script>
 </body>
 
 </html>
