@@ -77,7 +77,7 @@ window.onclick = function (event) {
 
 window.redirectToYear = function (department) {
     localStorage.setItem("selectedDepartment", department.toLowerCase());
-    window.location.href = `./${department.toLowerCase()}/year.html`;
+    window.location.href = `${department.toLowerCase()}/year.html`;
 };
 
 // // ✅ Corrected: Handle Year Button Clicks Properly
