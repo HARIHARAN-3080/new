@@ -26,9 +26,9 @@ const loginModal = document.getElementById("loginModal");
     loginModal?.classList.add("show");
 };*/
 const openmode=document.getElementById("loginBtn");
-openmode.onclick=()=>{
+openmode.addEventListener("click",function(){
     document.getElementById("loginform").style.display="block";
-}
+})
 
 // Close Modal
 /*window.closeLoginModal = function () {
@@ -36,9 +36,9 @@ openmode.onclick=()=>{
 };*/
 
 const closemode=document.getElementById("logoutbtn");
-closemode.onclick=()=>{
+closemode.addEventListener("click",function(){
     document.getElementById("loginform").style.display="none";
-}
+})
 
 // Firebase Login Function
 window.login = function () {
