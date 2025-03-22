@@ -43,10 +43,14 @@
         <div class="button" onclick="selectYear('year-4')">
             <span>Year 4</span>
         </div>
-        
     </section>
 
-    <script src="app.js" type="module"></script>
+    <script type="module">
+        import { selectYear } from "../app.js";
+        window.selectYear = selectYear; // Make it globally accessible
+    </script>
+
+    <script src="../app.js" type="module"></script>
 </body>
 
-</html>
+</html>  compare with the above app.js correct this code

@@ -202,7 +202,7 @@ nav ul li a1 {
 }
 
 .show {
-    display: block;
+    display: none;
 }
 
 /* Departments Section */
@@ -351,6 +351,7 @@ nav ul li a1 {
     margin-bottom: 20px;
 }
 
+
 .student-form {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -425,5 +426,121 @@ nav ul li a1 {
     .portal-container {
         width: 90%;
         padding: 15px;
+    }
+}
+.login-modal {
+    display: none;
+    position: fixed;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+}
+
+.login-modal.show {
+    display: block;
+}
+
+/* Student Portal Page Specific Styles */
+.student-portal {
+    max-width: 1200px;
+    margin: 120px auto;
+    padding: 30px;
+    background-color: rgba(255, 255, 255, 0.95);
+    border-radius: 12px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    text-align: center;
+}
+
+/* Header for Student Portal */
+.student-portal-header {
+    font-size: 40px;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+/* Form Styling */
+.student-portal-form {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+    margin-top: 20px;
+    text-align: left;
+}
+
+.student-portal-form label {
+    font-weight: bold;
+}
+
+.student-portal-form input,
+.student-portal-form select {
+    width: 100%;
+    padding: 10px;
+    margin-top: 5px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+}
+
+/* Submit Button */
+.student-portal-form button {
+    grid-column: span 2;
+    background-color: #4CAF50;
+    color: white;
+    padding: 12px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    font-size: 18px;
+}
+
+.student-portal-form button:hover {
+    background-color: #45a049;
+}
+
+/* Student Data Display */
+.student-data {
+    margin-top: 40px;
+}
+
+.student-data h3 {
+    font-size: 28px;
+    color: #333;
+    margin-bottom: 15px;
+}
+
+/* Student List */
+.student-data-list {
+    list-style: none;
+    padding: 0;
+}
+
+.student-data-list li {
+    background-color: #f9f9f9;
+    padding: 14px;
+    margin: 10px 0;
+    border-radius: 8px;
+    transition: background-color 0.3s;
+    font-size: 18px;
+}
+
+.student-data-list li:hover {
+    background-color: #f0c040;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .student-portal-form {
+        grid-template-columns: 1fr;
+    }
+
+    .student-portal {
+        width: 90%;
+        padding: 20px;
     }
 }

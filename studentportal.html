@@ -2,56 +2,163 @@
 <html>
 <head>
     <title>Student Portal</title>
-    <link rel="stylesheet" type="text/css" href="style.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: #f0f0f0;
+        }
+        .students-section {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            padding: 20px;
+        }
+        .add-student-btn {
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+        .add-student-btn:hover {
+            background-color: #45a049;
+        }
+        .student-card {
+            width: 150px;
+            padding: 15px;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            cursor: pointer;
+            text-align: center;
+        }
+        .student-card img {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            margin-bottom: 10px;
+        }
+        .popup-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 1;
+        }
+        .popup-form {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            width: 400px;
+            transform: translate(-50%, -50%);
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            z-index: 2;
+        }
+        .popup-form form {
+            display: flex;
+            flex-direction: column;
+        }
+        .popup-form label {
+            margin-top: 10px;
+        }
+        .popup-form input, .popup-form textarea {
+            padding: 10px;
+            margin-top: 5px;
+            width: 100%;
+            box-sizing: border-box;
+        }
+        .popup-form button {
+            margin-top: 15px;
+            padding: 10px;
+            cursor: pointer;
+        }
+        .profile-details {
+            padding: 20px;
+            background: #fff;
+            border-radius: 10px;
+            margin-top: 20px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+        .profile-card {
+            text-align: center;
+        }
+        .profile-img-frame img {
+            width: 100px;
+            border-radius: 50%;
+        }
+        .profile-info p {
+            margin: 5px 0;
+        }
+        #studentForm{
+            height: 700px;
+            overflow: scroll;
+        }
+    </style>
 </head>
 <body>
 
-    <!-- Header Section -->
-    <header>
-        <h1>Student Portal</h1>
-        <div class="profile-section">
-            <img src="profile-placeholder.png" class="profile-img" onclick="toggleProfileDropdown()" alt="Profile">
-            <div id="dropdownContent" class="dropdown-content">
-                <a href="#" onclick="logout()">Logout</a>
-            </div>
-        </div>
-    </header>
-
-    <!-- Student List Section -->
-    <section id="studentsSection">
+    <div id="studentsSection" class="students-section">
         <button class="add-student-btn" onclick="showForm()">Add Student</button>
-    </section>
-
-    <!-- Student Profile Popup -->
-    <div id="popupForm" class="popup-form">
-        <div class="form-container">
-            <span class="close-btn" onclick="closeForm()">×</span>
-            <h2>Add Student</h2>
-            <form id="studentForm">
-                <input type="text" id="studentName" placeholder="Name" required>
-                <input type="email" id="studentEmail" placeholder="Email" required>
-                <input type="text" id="registerNumber" placeholder="Register Number" required>
-                <input type="text" id="mobileNumber" placeholder="Mobile Number" required>
-                <input type="text" id="nativePlace" placeholder="Native Place">
-                <input type="text" id="address" placeholder="Address">
-                <input type="text" id="collegeName" placeholder="College Name" required>
-                <input type="text" id="department" placeholder="Department" required>
-                <input type="text" id="year" placeholder="Year" required>
-                <input type="text" id="section" placeholder="Section" required>
-                <input type="text" id="resumeLink" placeholder="Resume Link">
-                <label for="profileImageUpload">Upload Profile Image:</label>
-                <input type="file" id="profileImageUpload" accept="image/*">
-                <button type="submit">Add Student</button>
-            </form>
-        </div>
     </div>
 
-    <!-- Profile Details Section -->
-    <section id="profileDetails"></section>
-
-    <!-- Overlay for Modal -->
     <div id="popupOverlay" class="popup-overlay" onclick="closeForm()"></div>
+    <div id="popupForm" class="popup-form">
+        <form id="studentForm">
+            <h2>Add Student Details</h2>
+            <label for="profileImageUpload">Profile Image:</label>
+            <input type="file" id="profileImageUpload" accept="image/*" required>
 
-    <script src="app.js" type="module"></script>
+            <label for="studentName">Name:</label>
+            <input type="text" id="studentName" required>
+
+            <label for="studentEmail">Email:</label>
+            <input type="email" id="studentEmail" required>
+
+            <label for="registerNumber">Register Number:</label>
+            <input type="text" id="registerNumber" required>
+
+            <label for="mobileNumber">Mobile Number:</label>
+            <input type="text" id="mobileNumber" required>
+
+            <label for="nativePlace">Native Place:</label>
+            <input type="text" id="nativePlace" required> 
+ 
+            <label for="address">Address:</label>
+            <textarea id="address" required></textarea>
+
+            <label for="collegeName">College Name:</label>
+            <input type="text" id="collegeName" required>
+
+            <label for="department">Department:</label>
+            <input type="text" id="department" required>
+ 
+            <label for="year">Year:</label>
+            <input type="text" id="year" required>
+
+            <label for="section">Section:</label>
+            <input type="text" id="section" required>
+
+            <label for="resumeLink">Resume Link:</label>
+            <input type="url" id="resumeLink">
+
+            <button type="submit">Save Student</button>
+            <button type="button" onclick="closeForm()">Cancel</button>
+        </form>
+    </div>
+
+    <div id="profileDetails" class="profile-details"></div>
+
+    <!-- Firebase JS SDK -->
+    <script type="module" src="app.js"></script>
+
 </body>
 </html>
