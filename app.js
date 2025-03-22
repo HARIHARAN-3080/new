@@ -22,14 +22,23 @@ const database = getDatabase(app); // Access Realtime Database
 const loginModal = document.getElementById("loginModal");
 
 // Open Modal
-window.openLoginModal = function () {
+/*window.openLoginModal = function () {
     loginModal?.classList.add("show");
-};
+};*/
+const openmode=document.getElementById("loginBtn");
+openmode.onclick()=()=>{
+    openmode.classList.add("show");
+}
 
 // Close Modal
-window.closeLoginModal = function () {
+/*window.closeLoginModal = function () {
     loginModal?.classList.remove("show");
-};
+};*/
+
+const closemode=document.getElementById("logoutbtn");
+closemode.onclick()=()=>{
+    openmode.classList.remove("show");
+}
 
 // Firebase Login Function
 window.login = function () {
