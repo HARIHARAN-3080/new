@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SDDATA - Login</title>
     <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
     <!-- Background Video -->
     <div class="video-background">
@@ -30,14 +32,13 @@
         <div class="hero-content">
             <h2>STUDENTS <span>DATABASE</span></h2>
             <h3>MAKE AN <span>IMPACT</span></h3>
-            <button class="btn" onclick="openLoginModal()">DATABASE LOGIN</button>
+            <button class="btn" id="loginBtn" onclick="openLoginModal()">DATABASE LOGIN</button>
             <a href="D:/DATABASE/test/requestbox.html">
                 <button class="btn" id="request">Request for access</button>
             </a>
         </div>
     </section>
 
-    
     <!-- Login Modal -->
     <div id="loginModal" class="login-modal">
         <div class="modal-content">
@@ -51,7 +52,7 @@
             <div class="modal-body">
                 <input type="email" id="email" placeholder="Email">
                 <input type="password" id="password" placeholder="Password">
-                <button onclick="login()">Login</button>
+                <button id="loginSubmit" onclick="login()">Login</button>
             </div>
 
             <!-- Modal Footer -->
@@ -64,4 +65,5 @@
     <!-- Firebase SDK and Main Script -->
     <script type="module" src="app.js"></script>
 </body>
+
 </html>
