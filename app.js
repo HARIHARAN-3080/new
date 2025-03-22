@@ -26,7 +26,7 @@ const loginModal = document.getElementById("loginModal");
     loginModal?.classList.add("show");
 };*/
 const openmode=document.getElementById("loginBtn");
-openmode.onclick()=()=>{
+openmode.onclick=()=>{
     document.getElementById("loginform").style.display="block";
 }
 
@@ -36,7 +36,7 @@ openmode.onclick()=()=>{
 };*/
 
 const closemode=document.getElementById("logoutbtn");
-closemode.onclick()=()=>{
+closemode.onclick=()=>{
     document.getElementById("loginform").style.display="none";
 }
 
