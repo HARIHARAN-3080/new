@@ -1,10 +1,9 @@
 // Import Firebase Modules
 import { initializeApp } from "https://www.gstatic.com/firebasejs/11.2.0/firebase-app.js";
 import { getAuth, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/11.2.0/firebase-auth.js";
-import { getDatabase, ref, get } from "https://www.gstatic.com/firebasejs/11.2.0/firebase-database.js";
+import { getDatabase, ref, get, set, onValue } from "https://www.gstatic.com/firebasejs/11.2.0/firebase-database.js";
 
 // Firebase Configuration
-
 const firebaseConfig = {
     apiKey: "AIzaSyDJZYPHzaWbQm328L8SXDzvH52X5XB-vJw",
     authDomain: "signin-5a455.firebaseapp.com",
@@ -80,14 +79,6 @@ window.redirectToYear = function (department) {
     window.location.href = `${department}/year.html`;
 };
 
-// // ✅ Corrected: Handle Year Button Clicks Properly
-// document.querySelectorAll(".year-btn").forEach((button) => {
-//     button.addEventListener("click", function () {
-//         const year = this.getAttribute("data-year");
-//         navigateToStudentPage(year);
-//     });
-// });
-
 // Handle Year Selection in year.html
 window.selectYear = function (year) {
     const selectedDept = localStorage.getItem("selectedDepartment");
@@ -116,3 +107,118 @@ document.getElementById("closeModal")?.addEventListener("click", closeLoginModal
 
 // Login on Submit Button Click
 document.getElementById("loginSubmit")?.addEventListener("click", login);
+
+// --- Merged Student Portal Code Below ---
+
+// Correct Firebase Reference
+const studentsRef = ref(database, "department/year-1/students_namelist");
+
+// Load Students from Firebase
+function loadStudents() {
+    onValue(studentsRef, (snapshot) => {
+        document.getElementById('studentsSection').innerHTML = '<button class="add-student-btn" onclick="showForm()">Add Student</button>';
+        if (snapshot.exists()) {
+            const students = snapshot.val();
+            Object.keys(students).forEach((studentName) => {
+                createStudentCard(students[studentName], studentName);
+            });
+        }
+    });
+}
+
+// Create Student Card
+function createStudentCard(student, studentName) {
+    const studentCard = document.createElement('div');
+    studentCard.classList.add('student-card');
+
+    const profileImg = document.createElement('img');
+    profileImg.src = student.profileImage || 'https://via.placeholder.com/50';
+    profileImg.classList.add('profile-img');
+    studentCard.appendChild(profileImg);
+
+    const studentNameDiv = document.createElement('div');
+    studentNameDiv.textContent = student.name;
+    studentCard.appendChild(studentNameDiv);
+
+    studentCard.onclick = function () {
+        showProfile(student, studentName);
+    };
+
+    document.getElementById('studentsSection').appendChild(studentCard);
+}
+
+// Show Student Form
+window.showForm = function () {
+    document.getElementById('popupForm').style.display = 'flex';
+    document.getElementById('popupOverlay').style.display = 'block';
+    document.getElementById('studentForm').reset();
+}
+
+// Close Form
+window.closeForm = function () {
+    document.getElementById('popupForm').style.display = 'none';
+    document.getElementById('popupOverlay').style.display = 'none';
+}
+
+// Handle Student Form Submission
+document.getElementById('studentForm').onsubmit = function (e) {
+    e.preventDefault();
+
+    const fileInput = document.getElementById('profileImageUpload');
+    const reader = new FileReader();
+
+    reader.onload = function (event) {
+        const studentName = document.getElementById('studentName').value;
+        const studentDataRef = ref(database, `department/year-1/students_namelist/${studentName}`);
+
+        const student = {
+            name: studentName,
+            email: document.getElementById('studentEmail').value,
+            registernumber: document.getElementById('registerNumber').value,
+            mobileNumber: document.getElementById('mobileNumber').value,
+            nativePlace: document.getElementById('nativePlace').value,
+            address: document.getElementById('address').value,
+            collegeName: document.getElementById('collegeName').value,
+            department: document.getElementById('department').value,
+            year: document.getElementById('year').value,
+            section: document.getElementById('section').value,
+            resumeLink: document.getElementById('resumeLink').value,
+            profileImage: event.target.result,
+        };
+
+        // Save student data to correct path
+        set(studentDataRef, student).then(() => {
+            loadStudents();
+            closeForm();
+        });
+    };
+
+    reader.readAsDataURL(fileInput.files[0]);
+}
+
+// Show Student Profile
+window.showProfile = function (student, studentName) {
+    document.getElementById('profileDetails').innerHTML = `
+        <div class="profile-card">
+            <div class="profile-img-frame">
+                <img src="${student.profileImage || 'https://via.placeholder.com/100'}" alt="Profile Image">
+            </div>
+            <h2>${student.name}</h2>
+            <div class="profile-info">
+                <p><strong>Register Number:</strong> ${student.registernumber}</p>
+                <p><strong>Email:</strong> ${student.email}</p>
+                <p><strong>Mobile Number:</strong> ${student.mobileNumber}</p>
+                <p><strong>Native Place:</strong> ${student.nativePlace}</p>
+                <p><strong>Address:</strong> ${student.address}</p>
+                <p><strong>College:</strong> ${student.collegeName}</p>
+                <p><strong>Department:</strong> ${student.department}</p>
+                <p><strong>Year:</strong> ${student.year}</p>
+                <p><strong>Section:</strong> ${student.section}</p>
+                <p><strong>Resume Link:</strong> <a href="${student.resumeLink}" target="_blank">View Resume</a></p>
+            </div>
+        </div>
+    `;
+}
+
+// Load Students on Page Load
+window.onload = loadStudents;
