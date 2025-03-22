@@ -22,9 +22,12 @@ const database = getDatabase(app); // Access Realtime Database
 const loginModal = document.getElementById("loginModal");
 
 // Open Modal
-window.openLoginModal = function () {
+/*window.openLoginModal = function () {
     loginModal?.classList.add("show");
-};
+};*/
+function openLoginModal(){
+    classList.add("show");
+}
 
 // Close Modal
 window.closeLoginModal = function () {
