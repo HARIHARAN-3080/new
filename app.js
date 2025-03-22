@@ -160,41 +160,46 @@ window.closeForm = function () {
     document.getElementById('popupOverlay').style.display = 'none';
 }
 
-// Handle Student Form Submission
-document.getElementById('studentForm').onsubmit = function (e) {
-    e.preventDefault();
+// ✅ Wrap Form Submission Handler in DOMContentLoaded to Prevent Null Errors
+document.addEventListener("DOMContentLoaded", function () {
+    const studentForm = document.getElementById("studentForm");
+    if (studentForm) {
+        studentForm.onsubmit = function (e) {
+            e.preventDefault();
 
-    const fileInput = document.getElementById('profileImageUpload');
-    const reader = new FileReader();
+            const fileInput = document.getElementById('profileImageUpload');
+            const reader = new FileReader();
 
-    reader.onload = function (event) {
-        const studentName = document.getElementById('studentName').value;
-        const studentDataRef = ref(database, `department/year-1/students_namelist/${studentName}`);
+            reader.onload = function (event) {
+                const studentName = document.getElementById('studentName').value;
+                const studentDataRef = ref(database, `department/year-1/students_namelist/${studentName}`);
 
-        const student = {
-            name: studentName,
-            email: document.getElementById('studentEmail').value,
-            registernumber: document.getElementById('registerNumber').value,
-            mobileNumber: document.getElementById('mobileNumber').value,
-            nativePlace: document.getElementById('nativePlace').value,
-            address: document.getElementById('address').value,
-            collegeName: document.getElementById('collegeName').value,
-            department: document.getElementById('department').value,
-            year: document.getElementById('year').value,
-            section: document.getElementById('section').value,
-            resumeLink: document.getElementById('resumeLink').value,
-            profileImage: event.target.result,
+                const student = {
+                    name: studentName,
+                    email: document.getElementById('studentEmail').value,
+                    registernumber: document.getElementById('registerNumber').value,
+                    mobileNumber: document.getElementById('mobileNumber').value,
+                    nativePlace: document.getElementById('nativePlace').value,
+                    address: document.getElementById('address').value,
+                    collegeName: document.getElementById('collegeName').value,
+                    department: document.getElementById('department').value,
+                    year: document.getElementById('year').value,
+                    section: document.getElementById('section').value,
+                    resumeLink: document.getElementById('resumeLink').value,
+                    profileImage: event.target.result,
+                };
+
+                // Save student data to correct path
+                set(studentDataRef, student).then(() => {
+                    loadStudents();
+                    closeForm();
+                });
+            };
+
+            reader.readAsDataURL(fileInput.files[0]);
         };
-
-        // Save student data to correct path
-        set(studentDataRef, student).then(() => {
-            loadStudents();
-            closeForm();
-        });
-    };
-
-    reader.readAsDataURL(fileInput.files[0]);
-}
+    }
+});
 
 // Show Student Profile
 window.showProfile = function (student, studentName) {
