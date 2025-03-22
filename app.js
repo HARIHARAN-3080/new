@@ -22,12 +22,9 @@ const database = getDatabase(app); // Access Realtime Database
 const loginModal = document.getElementById("loginModal");
 
 // Open Modal
-/*window.openLoginModal = function () {
+window.openLoginModal = function () {
     loginModal?.classList.add("show");
-};*/
-function openLoginModal(){
-    classList.add("show");
-}
+};
 
 // Close Modal
 window.closeLoginModal = function () {
@@ -101,9 +98,6 @@ if (document.querySelectorAll(".year-btn").length > 0) {
         });
     });
 }
-
-// ✅ Open Login Modal when Database Button is Clicked
-document.getElementById("openModalBtn")?.addEventListener("click", openLoginModal);
 
 // Open Login Modal when Login Button is Clicked
 document.getElementById("loginBtn")?.addEventListener("click", openLoginModal);
