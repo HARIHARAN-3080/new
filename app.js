@@ -76,8 +76,8 @@ window.onclick = function (event) {
 };
 
 window.redirectToYear = function (department) {
-    localStorage.setItem("selectedDepartment", department.toLowerCase());
-    window.location.href = `${department.toLowerCase()}/year.html`;
+    localStorage.setItem("selectedDepartment", department);
+    window.location.href = `${department}/year.html`;
 };
 
 // // ✅ Corrected: Handle Year Button Clicks Properly
