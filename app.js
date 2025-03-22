@@ -27,7 +27,7 @@ const loginModal = document.getElementById("loginModal");
 };*/
 const openmode=document.getElementById("loginBtn");
 openmode.onclick()=()=>{
-    openmode.classList.add("show");
+    document.getElementById("loginform").style.display="block";
 }
 
 // Close Modal
@@ -37,7 +37,7 @@ openmode.onclick()=()=>{
 
 const closemode=document.getElementById("logoutbtn");
 closemode.onclick()=()=>{
-    openmode.classList.remove("show");
+    document.getElementById("loginform").style.display="none";
 }
 
 // Firebase Login Function
